@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<ProductEntity, String> {
 
     ProductEntity findProductsById(String id);
+
     @Modifying
     @Transactional
     @Query("UPDATE ProductEntity p SET p.name = :name, p.category = :category, p.baseValue = :baseValue, p.feeValue = :feeValue WHERE p.id = :id")
