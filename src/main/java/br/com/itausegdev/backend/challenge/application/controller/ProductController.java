@@ -1,4 +1,4 @@
-package br.com.itausegdev.backend.challenge.application;
+package br.com.itausegdev.backend.challenge.application.controller;
 
 import br.com.itausegdev.backend.challenge.application.dto.ProductRequest;
 import br.com.itausegdev.backend.challenge.application.dto.ProductResponse;

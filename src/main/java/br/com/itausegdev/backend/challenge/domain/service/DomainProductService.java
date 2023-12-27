@@ -33,14 +33,11 @@ public class DomainProductService implements ProductService {
      */
     @Override
     public ProductBuilder getProduct(String id) {
-
         var response = repository.findProductsById(id);
-
         if (response == null) {
             logger.error(PRODUCT_NOT_FOUND);
             throw new RuntimeException();
         }
-
         return new ProductBuilder.Builder()
                 .id(response.getId())
                 .name(response.getName())
@@ -52,14 +49,11 @@ public class DomainProductService implements ProductService {
 
     @Override
     public List<ProductResponse> getProducts() {
-
         var response = Optional.of(repository.findAll());
-
         if(response.get().isEmpty()) {
             logger.error(PRODUCT_NOT_FOUND);
             throw new IllegalArgumentException(PRODUCT_NOT_FOUND);
         }
-
         return response.get()
                 .stream()
                 .map(productEntity -> new ModelMapper().map(productEntity, ProductResponse.class))
@@ -72,7 +66,6 @@ public class DomainProductService implements ProductService {
             var fee = ProductType.valueOf(request.getCategory()).getFee(request.getBaseValue());
             var ent = builProductEntity(request, new ProductEntity(), fee);
             repository.save(ent);
-
         } catch (NullPointerException e) {
             throw new RuntimeException(INTERNAL_SERVER_ERROR);
         } catch (IllegalArgumentException e) {
@@ -82,16 +75,13 @@ public class DomainProductService implements ProductService {
 
     @Override
     public void updateProduct(ProductRequest request) {
-
         try {
             var fee = ProductType.valueOf(request.getCategory()).getFee(request.getBaseValue());
-
             repository.updateProduct(request.getId(),
                     request.getName(),
                     request.getCategory(),
                     request.getBaseValue().toString(),
                     String.valueOf(fee));
-
         } catch (InvalidDataAccessApiUsageException | IllegalArgumentException e) {
             logger.error(e.getMessage());
             throw new RuntimeException(PRODUCT_NOT_FOUND);
