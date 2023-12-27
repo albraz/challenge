@@ -33,9 +33,7 @@ public enum ProductType {
     }
 
     public BigDecimal getFee(BigDecimal base) {
-
         BigDecimal hundred = BigDecimal.valueOf(100).setScale(2);
-
         return base.add(base.multiply(this.iof).divide(hundred))
                 .add(base.multiply(this.pis).divide(hundred))
                 .add(base.multiply(this.cofins).divide(hundred));
