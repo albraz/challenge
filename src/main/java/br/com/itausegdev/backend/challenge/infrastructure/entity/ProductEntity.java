@@ -25,6 +25,11 @@ public class ProductEntity {
     @Column(name = "fee")
     private String feeValue;
 
+    public ProductEntity() {
+    }
+
+
+
     public String getId() {
         return id;
     }

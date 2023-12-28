@@ -1,12 +1,26 @@
 package br.com.itausegdev.backend.challenge.application.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import org.aspectj.lang.annotation.RequiredTypes;
+
 import java.math.BigDecimal;
 
 public class ProductRequest {
 
     private String id;
+    @NotEmpty
+    @NotNull
+    @JsonProperty("nome")
     private String name;
+
+    @NotEmpty
+    @NotNull
+    @JsonProperty("categoria")
     private String category;
+
+    @JsonProperty("valor_base")
     private BigDecimal baseValue;
 
     public String getId() {

@@ -2,7 +2,6 @@ package br.com.itausegdev.backend.challenge.domain.service;
 
 import br.com.itausegdev.backend.challenge.application.dto.ProductRequest;
 import br.com.itausegdev.backend.challenge.application.dto.ProductResponse;
-import br.com.itausegdev.backend.challenge.domain.builder.ProductBuilder;
 import br.com.itausegdev.backend.challenge.domain.enums.ProductType;
 import br.com.itausegdev.backend.challenge.infrastructure.entity.ProductEntity;
 import br.com.itausegdev.backend.challenge.infrastructure.repository.ProductRepository;
@@ -17,7 +16,8 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static br.com.itausegdev.backend.challenge.domain.utils.Messages.*;
+import static br.com.itausegdev.backend.challenge.domain.utils.Messages.PRODUCT_NOT_FOUND;
+import static br.com.itausegdev.backend.challenge.domain.utils.Messages.PRODUCT_NOT_PARAMETRIZED;
 
 @Service
 public class DomainProductService implements ProductService {
@@ -27,48 +27,33 @@ public class DomainProductService implements ProductService {
     @Autowired
     private ProductRepository repository;
 
-    /**
-     * @param id product id
-     * @return Builder Pattern
-     */
-    @Override
-    public ProductBuilder getProduct(String id) {
-        var response = repository.findProductsById(id);
-        if (response == null) {
-            logger.error(PRODUCT_NOT_FOUND);
-            throw new RuntimeException();
-        }
-        return new ProductBuilder.Builder()
-                .id(response.getId())
-                .name(response.getName())
-                .category(response.getCategory())
-                .base(response.getBaseValue())
-                .fee(response.getFeeValue())
-                .build();
-    }
-
     @Override
     public List<ProductResponse> getProducts() {
         var response = Optional.of(repository.findAll());
-        if(response.get().isEmpty()) {
+
+        if (response.get().isEmpty()) {
             logger.error(PRODUCT_NOT_FOUND);
             throw new IllegalArgumentException(PRODUCT_NOT_FOUND);
         }
         return response.get()
                 .stream()
-                .map(productEntity -> new ModelMapper().map(productEntity, ProductResponse.class))
+                .map(productEntity -> new ModelMapper()
+                        .map(productEntity, ProductResponse.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void createProduct(ProductRequest request) {
+    public ProductResponse createProduct(ProductRequest request) {
         try {
-            var fee = ProductType.valueOf(request.getCategory()).getFee(request.getBaseValue());
+            var fee = ProductType.valueOf(request.getCategory())
+                    .getFee(request.getBaseValue());
             var ent = builProductEntity(request, new ProductEntity(), fee);
+
             repository.save(ent);
-        } catch (NullPointerException e) {
-            throw new RuntimeException(INTERNAL_SERVER_ERROR);
+
+            return new ModelMapper().map(ent, ProductResponse.class);
         } catch (IllegalArgumentException e) {
+            logger.error(PRODUCT_NOT_PARAMETRIZED);
             throw new RuntimeException(PRODUCT_NOT_PARAMETRIZED);
         }
     }
@@ -77,11 +62,13 @@ public class DomainProductService implements ProductService {
     public void updateProduct(ProductRequest request) {
         try {
             var fee = ProductType.valueOf(request.getCategory()).getFee(request.getBaseValue());
+
             repository.updateProduct(request.getId(),
                     request.getName(),
                     request.getCategory(),
                     request.getBaseValue().toString(),
                     String.valueOf(fee));
+
         } catch (InvalidDataAccessApiUsageException | IllegalArgumentException e) {
             logger.error(e.getMessage());
             throw new RuntimeException(PRODUCT_NOT_FOUND);

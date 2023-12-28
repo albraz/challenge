@@ -5,32 +5,36 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public class ProductResponse {
 
+    @JsonProperty("id")
     private String id;
+    @JsonProperty("nome")
     private String name;
+    @JsonProperty("categoria")
     private String category;
+    @JsonProperty("valor_base")
     private String baseValue;
+    @JsonProperty("preco_tarifado")
     private String feeValue;
 
-    @JsonProperty("id")
+    public ProductResponse() {
+    }
+
+    public ProductResponse(String number, String s, String s1, double v, double v1) {
+    }
+
+
     public String getId() {
         return id;
     }
-    @JsonProperty("nome")
     public String getName() {
         return name;
     }
-
-    @JsonProperty("categoria")
     public String getCategory() {
         return category;
     }
-
-    @JsonProperty("valor_base")
     public String getBaseValue() {
         return baseValue;
     }
-
-    @JsonProperty("preco_tarifado")
     public String getFeeValue() {
         return feeValue;
     }

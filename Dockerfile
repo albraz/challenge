@@ -9,4 +9,4 @@ MAINTAINER backend-challenge
 FROM openjdk:17-alpine
 EXPOSE 8080
 COPY --from=build /home/gradle/src/build/libs/challenge-0.0.1-SNAPSHOT.jar /app/app.jar
-ENTRYPOINT ["java","-jar","/app/app.jar", "--trace"]
+ENTRYPOINT ["java","-jar","/app/app.jar"]
