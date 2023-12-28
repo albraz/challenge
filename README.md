@@ -23,8 +23,11 @@
 ###
 
 <p align="left">Java (JDK 17)<br>Gradle 8.2.1<br>Docker 24.0.7<br>Git<br>H2 DB</p>
+
 ###
+
 <h2 align="left">Stack</h2>
+
 ###
 
 <div align="left">
