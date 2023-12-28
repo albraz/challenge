@@ -1,6 +1,6 @@
 package br.com.itausegdev.backend.challenge.domain.utils;
 
-public class Messages {
+public class Message {
     public static final String PRODUCT_NOT_FOUND = "Nenhum produto encontrado";
     public static final String PRODUCT_NOT_PARAMETRIZED = "Produto não parametrizado";
     public static final String INTERNAL_SERVER_ERROR = "Erro interno do servidor";

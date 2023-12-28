@@ -16,8 +16,8 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static br.com.itausegdev.backend.challenge.domain.utils.Messages.PRODUCT_NOT_FOUND;
-import static br.com.itausegdev.backend.challenge.domain.utils.Messages.PRODUCT_NOT_PARAMETRIZED;
+import static br.com.itausegdev.backend.challenge.domain.utils.Message.PRODUCT_NOT_FOUND;
+import static br.com.itausegdev.backend.challenge.domain.utils.Message.PRODUCT_NOT_PARAMETRIZED;
 
 @Service
 public class DomainProductService implements ProductService {

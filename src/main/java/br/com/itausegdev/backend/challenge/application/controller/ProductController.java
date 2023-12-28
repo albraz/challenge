@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static br.com.itausegdev.backend.challenge.domain.utils.Messages.*;
+import static br.com.itausegdev.backend.challenge.domain.utils.Message.*;
 
 @RestController
 @RequestMapping("/products")

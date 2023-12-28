@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import static br.com.itausegdev.backend.challenge.domain.utils.Messages.INTERNAL_SERVER_ERROR;
+import static br.com.itausegdev.backend.challenge.domain.utils.Message.INTERNAL_SERVER_ERROR;
 
 @ControllerAdvice
 public class RestResponseExceptionHandler
