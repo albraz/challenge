@@ -3,7 +3,6 @@ package br.com.itausegdev.backend.challenge.application.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import org.aspectj.lang.annotation.RequiredTypes;
 
 import java.math.BigDecimal;
 
