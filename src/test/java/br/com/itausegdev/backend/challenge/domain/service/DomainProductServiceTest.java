@@ -34,7 +34,6 @@ public class DomainProductServiceTest {
         request.setBaseValue(new BigDecimal("100.00"));
 
         var response = service.createProduct(request);
-
         assertEquals("103.20", response.getFeeValue());
     }
 
@@ -46,7 +45,6 @@ public class DomainProductServiceTest {
         request.setBaseValue(new BigDecimal("50.00"));
 
         var response = service.createProduct(request);
-
         assertEquals("55.25", response.getFeeValue());
     }
 
@@ -60,9 +58,6 @@ public class DomainProductServiceTest {
         assertThrows(RuntimeException.class, () -> service.createProduct(request));
     }
 
-    /**
-     * Embora o retorno do método seja void, é possível verificar se o método calcula a taxa de seguro de vida.
-     */
     @Test
     void whenUpdateProductVidaShouldCalculateFeeVida() {
         ProductRequest request = new ProductRequest();
@@ -72,7 +67,6 @@ public class DomainProductServiceTest {
         request.setBaseValue(new BigDecimal("100.00"));
 
         service.updateProduct(request);
-
         verify(repository).updateProduct("d651b64e-1cb5-4019-a54f-01d47cf25911",
                 "Seguro de Vida Individual",
                 "VIDA",
@@ -87,9 +81,7 @@ public class DomainProductServiceTest {
         product.setName("Seguro de Vida Individual");
 
         products.add(product);
-
         when(repository.findAll()).thenReturn(products);
-
         assertNotNull(service.getProducts());
     }
 }
