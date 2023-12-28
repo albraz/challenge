@@ -45,6 +45,26 @@ public class ProductBuilder {
         }
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getBase() {
+        return base;
+    }
+
+    public String getFee() {
+        return fee;
+    }
+
     public ProductBuilder(Builder builder) {
         id = builder.id;
         name = builder.name;
