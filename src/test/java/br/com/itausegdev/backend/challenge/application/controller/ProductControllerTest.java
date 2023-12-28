@@ -19,8 +19,7 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -89,5 +88,19 @@ public class ProductControllerTest {
                 .andExpect(jsonPath("$.nome").value(PRODUCT_NAME))
                 .andExpect(jsonPath("$.categoria").value(PRODUCT_CATEGORY))
                 .andExpect(jsonPath("$.valor_base").value(BASE_VALUE));
+    }
+
+    @Test
+    void shoulUpdateProduct() throws Exception {
+        ProductRequest request = new ProductRequest();
+        request.setId(PRODUCT_ID);
+        request.setName(PRODUCT_NAME);
+        request.setCategory(PRODUCT_CATEGORY);
+        request.setBaseValue(new BigDecimal(BASE_VALUE));
+
+        mockMvc.perform(patch("/products")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isNoContent());
     }
 }
